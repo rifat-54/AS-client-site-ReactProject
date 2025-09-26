@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { useState } from "react";
+import useAuth from '../../hooks/useAuth';
 const Login = () => {
 
-
+  const{loginUser}=useAuth()
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +13,17 @@ const Login = () => {
     e.preventDefault();
     console.log("Email:", email, "Password:", password);
     // TODO: add your login logic here
-  };
+     
+      loginUser(email,password)
+      .then((currentUser)=>{
+        console.log('user',currentUser?.user);
+      })
+      .catch((err)=>{
+        console.log('error-> ',err);
+      })
+      
+  }
+  
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#1D99F9] to-[#FB9A24] p-6">

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 
 const Register = () => {
 
+  const{createUser}=useAuth()
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +21,17 @@ const Register = () => {
 
     console.log("Name:", name, "Email:", email, "Password:", password);
     // TODO: add your registration logic here
+
+    try {
+     const data= createUser(email,password)
+     console.log('register->',data);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
   };
 
   return (

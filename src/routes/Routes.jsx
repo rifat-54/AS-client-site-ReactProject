@@ -4,6 +4,7 @@ import MainLayout from "../layout/mainlayout/MainLayout";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import Contact from "../pages/contact/Contact";
 
 const routes = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const routes = createBrowserRouter([
             {
                 path:"register",
                 element:<Register></Register>
+            },
+            {
+                path:'contact',
+                element:<Contact></Contact>
             }
         ]
     }
