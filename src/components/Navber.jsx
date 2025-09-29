@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navber = () => {
+
+   const {logoutUser}=useAuth()
+
+
   const navlink = (
     <div className="flex gap-4">
       <p>
@@ -18,6 +24,18 @@ const Navber = () => {
       </p>
     </div>
   );
+
+  const handleLogout=()=>{
+    logoutUser()
+    .then(()=>{
+      toast.success('successfully logout')
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+
+  
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="">
@@ -98,7 +116,7 @@ const Navber = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useState } from "react";
 import useAuth from '../../hooks/useAuth';
+import SocialLogin from '../../components/SocialLogin';
 const Login = () => {
 
   const{loginUser}=useAuth()
@@ -81,14 +82,7 @@ const Login = () => {
         </div>
 
         {/* Social Login */}
-        <button className="w-full border border-gray-300 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition">
-          <img
-            src="https://www.svgrepo.com/show/355037/google.svg"
-            alt="google"
-            className="w-5 h-5"
-          />
-          <span className="text-sm font-medium">Login with Google</span>
-        </button>
+        <SocialLogin></SocialLogin>
 
         {/* Extra Options */}
         <p className="mt-6 text-center text-sm text-gray-600">

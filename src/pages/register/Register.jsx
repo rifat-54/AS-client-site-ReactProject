@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import useAuth from '../../hooks/useAuth';
-
+import React, { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import SocialLogin from "../../components/SocialLogin";
 
 const Register = () => {
-
-  const{createUser}=useAuth()
+  const { createUser, updateUser, loginUser } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,16 +22,25 @@ const Register = () => {
     console.log("Name:", name, "Email:", email, "Password:", password);
     // TODO: add your registration logic here
 
-    try {
-     const data= createUser(email,password)
-     console.log('register->',data);
-
-    } catch (error) {
-      console.log(error);
-    }
-
-
-
+    createUser(email, password)
+      .then(() => {
+        updateUser(name)
+          .then(() => {
+            loginUser(email, password)
+              .then(() => {
+                toast.success("successfully register");
+              })
+              .catch((err) => {
+                console.log("login->", err);
+              });
+          })
+          .catch((err) => {
+            console.log("update->", err);
+          });
+      })
+      .catch((err) => {
+        console.log("create user", err);
+      });
   };
 
   return (
@@ -119,15 +128,8 @@ const Register = () => {
           <div className="flex-grow h-px bg-gray-300"></div>
         </div>
 
-        {/* Social Signup */}
-        <button className="w-full border border-gray-300 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition">
-          <img
-            src="https://www.svgrepo.com/show/355037/google.svg"
-            alt="google"
-            className="w-5 h-5"
-          />
-          <span className="text-sm font-medium">Sign Up with Google</span>
-        </button>
+         {/* social login */}
+          <SocialLogin></SocialLogin>
 
         {/* Extra Options */}
         <p className="mt-6 text-center text-sm text-gray-600">
@@ -139,8 +141,6 @@ const Register = () => {
       </div>
     </div>
   );
-
-
 };
 
 export default Register;
